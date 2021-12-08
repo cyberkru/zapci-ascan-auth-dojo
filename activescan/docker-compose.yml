@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+ zap:
+  image: cyberkru/zapci
+  ports:
+   - 8090:8090
+  logging:
+   driver: "none"
+ scan:
+  build:
+   context: ./scan
+  env_file:
+   - ./config.env
+  volumes:
+   - "$PWD/output:/app/output"
+  depends_on:
+   - zap
